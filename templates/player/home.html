@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+Panel Gracza
+{% endblock %}
+
+{% block content %}
+    <h1>Witaj {{ user.username}} !!!</h1>
+    Tutaj znajdziesz swoje aktywne gry:
+    <ul>
+    {% for g in games %}
+        <li>Gra {{ g.id }}: {{ g.first_player}} vs. {{ g.second_player}}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+        
