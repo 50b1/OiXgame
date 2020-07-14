@@ -1,16 +1,43 @@
 {% extends "base.html" %}
 
 {% block title %}
-Panel Gracza
+Panel Gracza {{ user.username }}
 {% endblock %}
 
 {% block content %}
-    <h1>Witaj {{ user.username}} !!!</h1>
-    Tutaj znajdziesz swoje aktywne gry:
+    <h2 class="text-primary">Witaj {{ user.username}} !!!</h2>
+    <div class="row">
+        <div class="col-md-6">
+
+    <h3>Tutaj znajdziesz swoje aktywne gry:</h3>
     <ul>
     {% for g in games %}
         <li>Gra {{ g.id }}: {{ g.first_player}} vs. {{ g.second_player}}</li>
     {% endfor %}
     </ul>
+
+    <p>Zapros innego gracza na małą partyjkę :)</p>
+    <p>
+    <a class="btn btn-primary" href="{% url 'player_nowe_zaproszenie' %}">
+        Zacznij Grę
+    </a></p>
+</div>
+    <div class="col-md-6">
+        <h3>Zaproszenia</h3>
+
+        {% if invitations %}
+            <div class="list-group">
+                {% for inv in invitations %}
+                    <a href="{% url 'player_akceptuj_zaproszenie' id=inv.id %}" class="list-group-item">
+                        {{inv.od_usera.username}} przesłał(a) zaproszenie do gry.
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Nie masz aktualnie aktywnych zaproszeń</p>
+        {% endif %}
+
+    </div>
+</div>
 {% endblock %}
         

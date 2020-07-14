@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+Akceptuj Zaproszenie
+{% endblock %}
+
+{% block content %}
+
+    <div class="well col-md-6">
+        <p>Użytkownik {{ invitation.od_usera }} zaprasza do gry i załącza wiadomość:
+        </p>
+
+        <blockquote><p> {{ invitation.wiadomosc }}</p></blockquote>
+
+        <form  action="" method="post">
+            {% csrf_token %}
+    
+            <button type="submit" name="accept" value="ok" class="btn btn-success">Akceptuj</button>
+            <button type="submit" name="deny" value="no" class="btn btn-success">Nie teraz</button>
+            
+        </form>
+
+
+    </div>
+
+
+{% endblock %}
