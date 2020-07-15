@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+Gra {{ game.first_player}} vs. {{ game.second_player}}
+{% endblock %}
+
+{% block styling %}
+    {{ block.super }}
+    <style type="text/css">
+        .oixgame-tabela{
+            width: 300px;
+            border-width: 2px;
+        }
+
+        .oixgame-pole{
+            background-color: #debb27;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            vertical-align: middle !important;
+            font-size: 60px;
+        }
+    </style>
+{% endblock styling %}
+
+{% block content %}
+    <div class="col-md-5">
+        <table class="table table-bordered oixgame-tabela">
+            {% for row in game.plansza %}
+                <tr>
+                    {% for move in row %}
+                        <td class="oixgame-pole">
+                            {% if move %}
+                                {% if move.by_first_player %}
+                                    X
+                                {% else %}
+                                    O
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
