@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}
 Gra {{ game.first_player}} vs. {{ game.second_player}}
@@ -25,6 +26,19 @@ Gra {{ game.first_player}} vs. {{ game.second_player}}
 
 {% block content %}
     <div class="col-md-5">
+
+        {% if game.status == 'F' %}
+            {{ game.first_player }} zagrywa.
+        {% elif game.status == 'S' %}
+            {{ game.second_player }} zagrywa.
+        {% elif game.status == 'W' %}
+            {{ game.first_player }} wygrał!
+        {% elif game.status == 'L' %}
+            {{ game.second_player }} wygrał!
+        {% elif game.status == 'D' %}
+            Gra zakończyła się remisem :)
+        {% endif %}
+
         <table class="table table-bordered oixgame-tabela">
             {% for row in game.plansza %}
                 <tr>
@@ -43,4 +57,16 @@ Gra {{ game.first_player}} vs. {{ game.second_player}}
             {% endfor %}
         </table>
     </div>
+
+    {% if form %}
+        <div class="col-md-4">
+            <h3>Teraz Twój Ruch! :)</h3>
+            <form method="post" action="{% url 'gameplay_zrob_move' game.id %}">
+                {{ form | crispy }}
+                {% csrf_token %}
+
+                <button type="submit">Zatwierdź Ruch</button>
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}
