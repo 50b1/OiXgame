@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.views.generic import ListView
 
 from .models import Game
 from .forms import MoveForm
@@ -26,3 +27,6 @@ def zrob_move(request, id):
         return redirect('gameplay_detale', id)
     else:
         return render(request, 'gameplay/game_detail.html', {'game': game, 'form': form})
+
+class ListaWszystkichGier(ListView):
+    model = Game

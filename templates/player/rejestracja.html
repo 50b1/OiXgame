@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Rejestracja
+{% endblock %}
+
+{% block content %}
+    <form role="form" action="{% url 'player_rejestracja' %}" method="post">
+        {% csrf_token %}
+
+        <p>Wypełnij formularz aby sworzyć nowe konto.</p>
+
+        {{ form | crispy }}
+
+        <button type="submit" class="btn btn-success">Zarejestruj się</button>
+        
+    </form>
+{% endblock %}

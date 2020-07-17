@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.views.generic import CreateView
+from django.contrib.auth.forms import UserCreationForm
+from django.core.urlresolvers import reverse_lazy
 
 from gameplay.models import Game
 from .forms import ZaproszenieFormularz
@@ -49,3 +52,9 @@ def akceptuj_zaproszenie(request, id):
         return redirect(game)
     else:
         return render(request, 'player/akceptuj_zaproszenie_form.html', {'invitation': invitation})
+
+
+class ZarejestrujSie(CreateView):
+    form_class = UserCreationForm
+    template_name = "player/rejestracja.html"
+    success_url = reverse_lazy('player_home')
